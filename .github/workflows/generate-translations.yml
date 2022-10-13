@@ -32,6 +32,8 @@ jobs:
       # Clones the openedx-translations repo
       - name: clone Carlos-Muniz/openedx-translations
         uses: actions/checkout@v3
+        with:
+          ref: automated/generate-translations
       
       # Installs gettext, a dependency for generating translation files in django
       - name: install gettext
@@ -65,8 +67,6 @@ jobs:
       # Commit only the english files
       - name: commit the english files
         run: |
-          # checkout the branch with all the changes
-          git checkout automated/generate-translations
           # finds the directory containing the english locale usually located in
           # */*/conf/locale/en
           EN_DIR=$(find ${{matrix.repo}} -type d -name "en")
