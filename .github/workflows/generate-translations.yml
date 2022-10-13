@@ -79,7 +79,8 @@ jobs:
           # extract_translations into EN_DIR and adds them
           DJANGO_PATH=$(find $EN_DIR -iname 'django.po')
           DJANGOJS_PATH=$(find $EN_DIR -iname 'djangojs.po')
-          git add $DJANGO_PATH $DJANGOJS_PATH -v
+          # git add $DJANGO_PATH $DJANGOJS_PATH -v
+          git add credentials/credentials/conf/locale/en/LC_MESSAGES/django.po credentials/credentials/conf/locale/en/LC_MESSAGES/djangojs.po -v
           git status -s
           # commit the changes
           git commit -m "chore: add generated translations from ${{ matrix.repo }}"
