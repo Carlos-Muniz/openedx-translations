@@ -44,7 +44,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: Carlos-Muniz/${{ matrix.repo }}
-          path: $GITHUB_WORKSPACE/${{ matrix.repo }}
+          path: ${{ matrix.repo }}
 
       # Sets up Python
       - name: setup python
@@ -61,7 +61,7 @@ jobs:
       # Generates the english translation files
       - name: generate translations
         run: |
-          cd $GITHUB_WORKSPACE/${{ matrix.repo }}
+          cd ${{ matrix.repo }}
           make extract_translations
       
       # Commit only the english files
