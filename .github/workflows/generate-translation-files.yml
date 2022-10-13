@@ -110,5 +110,5 @@ jobs:
       - name: merge pull request
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
-        run: gh pr merge $PR_URL --merge
+        run: gh pr merge $PR_URL --merge --delete-branch
         
