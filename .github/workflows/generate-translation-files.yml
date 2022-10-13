@@ -14,7 +14,7 @@ jobs:
   setup-branch:
     runs-on: ubuntu-latest
     steps:
-    - name: clone Carlos-Muniz/openedx-translations
+    - name: clone openedx/openedx-translations
       uses: actions/checkout@v3
     - name: make and push a new branch
       run: |
@@ -30,7 +30,7 @@ jobs:
 
     steps:
       # Clones the openedx-translations repo
-      - name: clone Carlos-Muniz/openedx-translations
+      - name: clone openedx/openedx-translations
         uses: actions/checkout@v3
         with:
           ref: automated/generate-translations
@@ -40,10 +40,10 @@ jobs:
         run: sudo apt install -y gettext
 
       # Clones the  repository
-      - name: clone Carlos-Muniz/${{ matrix.repo }}
+      - name: clone openedx/${{ matrix.repo }}
         uses: actions/checkout@v3
         with:
-          repository: Carlos-Muniz/${{ matrix.repo }}
+          repository: openedx/${{ matrix.repo }}
           path: ${{ matrix.repo }}
 
       # Sets up Python
@@ -99,7 +99,7 @@ jobs:
 
     steps:
       # Clones the openedx-translations repo on the automated/generate-translations branch
-      - name: clone Carlos-Muniz/openedx-translations
+      - name: clone openedx/openedx-translations
         uses: actions/checkout@v3
         with:
           ref: automated/generate-translations
