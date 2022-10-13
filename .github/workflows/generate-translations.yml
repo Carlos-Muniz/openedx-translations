@@ -87,3 +87,22 @@ jobs:
           git commit -m "chore: add generated translations from ${{ matrix.repo }}"
           # push changes to branch
           git push
+          
+  merge-translations:
+    runs-on: ubuntu-latest
+    needs: [python-translations]
+
+    steps:
+      # Clones the openedx-translations repo on the automated/generate-translations branch
+      - name: clone Carlos-Muniz/openedx-translations
+        uses: actions/checkout@v3
+        with:
+          ref: automated/generate-translations
+      
+      # Creates and Merges a pull request
+      - name: merge pull request
+        run: |
+          cd openedx-translations
+          gh pr merge automated/generate-translations --merge
+        env:
+          GITHUB_TOKEN: ${{ secrets.CREDENTIALS_TOKEN }}
