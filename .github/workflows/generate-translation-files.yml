@@ -64,9 +64,8 @@ jobs:
           cd ${{ matrix.repo }}
           make extract_translations
       
-      # Commit only the english files
-      - name: commit the english files
-        id: commitFiles
+      # Add only the english translation files
+      - name: add the english translation files
         run: |
           # set identity
           git config --global user.email "cmuniz@tcril.org"
@@ -81,14 +80,15 @@ jobs:
           DJANGO_PATH=$(find $EN_DIR -iname 'django.po')
           DJANGOJS_PATH=$(find $EN_DIR -iname 'djangojs.po')
           git add $DJANGO_PATH $DJANGOJS_PATH -v
+          
+      # Attempts to commit the english translation files if there is a difference
+      - name: commit the english translation files
+        if: (git status DJANGO_PATH -s && git status DJANGOJS_PATH -s)
+        run: |
           # commit the changes
           git commit -m "chore: add generated translations from ${{ matrix.repo }}"
           # push changes to branch
           git push
-        
-      - name: notify if commit is empty
-        run: echo "The translation files generated are identical to the translation files in the openedx-translations repository."
-        if: always() && (steps.commitFiles.outcome == 'failure')
           
   merge-translations:
     runs-on: ubuntu-latest
