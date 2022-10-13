@@ -1,0 +1,48 @@
+# This workflow generates translation files from code and moves the generated
+# translation files to the openedx-translations repository via an auto-merged pull
+# request.
+
+name: Generate Translation Files
+
+on:
+  # This action is meant to be used from other actions.
+  # https://docs.github.com/en/actions/learn-github-actions/reusing-workflows
+  - workflow_call
+  - workflow_dispatch
+
+jobs:
+  python-translations:
+    strategy:
+      matrix:
+        repo: [credentials]
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Installs gettext, a dependency for generating translation files in django
+      - name: install gettext
+        run: sudo apt install -y gettext
+
+      # Clones the  repository
+      - name: clone ${{ matrix.repo }}
+        uses: actions/checkout@v3
+        with:
+          repository: Carlos-Muniz/${{ matrix.repo }}
+
+      # Sets up Python
+      - name: setup python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.8'
+
+      # Installs Python requirements from translations.txt
+      - name: install requirements
+        run: |
+        cd ${{ matrix.repo }}
+        pip install -r requirements/translations.txt
+
+      # Generates the english translation files
+      - name: generate translations
+        run: |
+        cd ${{ matrix.repo }}
+        make extract_translations
