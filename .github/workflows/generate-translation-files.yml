@@ -1,4 +1,4 @@
-# This workflow generates translation files from code and moves the generated
+# This workflow generates translation files from code and adds the generated
 # translation files to the openedx-translations repository via an auto-merged pull
 # request.
 
