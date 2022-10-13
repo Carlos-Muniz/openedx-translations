@@ -67,6 +67,9 @@ jobs:
       # Commit only the english files
       - name: commit the english files
         run: |
+          # set identity
+          git config --global user.email "cmuniz@tcril.org"
+          git config --global user.name "Carlos Muniz"
           # finds the directory containing the english locale usually located in
           # */*/conf/locale/en
           EN_DIR=$(find ${{matrix.repo}} -type d -name "en")
@@ -74,9 +77,6 @@ jobs:
           # extract_translations into EN_DIR and adds them 
           git add $(find $EN_DIR -iname 'django.po')
           git add $(find $EN_DIR -iname 'djangojs.po')
-          # set identity
-          git config --global user.email "cmuniz@tcril.org"
-          git config --global user.name "Carlos Muniz"
           # commit the changes
           git commit -m "chore: add generated translations from ${{ matrix.repo }}"
           # push changes to branch
