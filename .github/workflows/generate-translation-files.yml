@@ -83,7 +83,7 @@ jobs:
           
       # Attempts to commit the english translation files if there is a difference
       - name: commit the english translation files
-        if: ($(git status DJANGO_PATH -s) && $(git status DJANGOJS_PATH -s))
+        if: ($(git status DJANGO_PATH -s) || $(git status DJANGOJS_PATH -s))
         run: |
           # commit the changes
           git commit -m "chore: add generated translations from ${{ matrix.repo }}"
