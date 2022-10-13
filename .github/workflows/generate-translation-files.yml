@@ -115,7 +115,9 @@ jobs:
       # If the above PR fails, delete the branch
       - name: delete empty branch
         if: (always() && steps.createPR.outcome == 'failure')
-        run: git push origin -d automated/generate-translations
+        run: |
+          echo "A Pull Request cannot be created in the openedx-translations repository because there are no commits to the branch"
+          git push origin -d automated/generate-translations
           
       
       # Merges the pull request
