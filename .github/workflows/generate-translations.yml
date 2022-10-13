@@ -11,14 +11,28 @@ on:
   - workflow_dispatch
 
 jobs:
+  setup-branch:
+    runs-on: ubuntu-latest
+    steps:
+    - name: clone Carlos-Muniz/openedx-translations
+      uses: actions/checkout@v3
+    - name: make and push a new branch
+      run: |
+        git checkout -b automated/generate-translations
+        git push --set-upstream origin automated/generate-translations
+
   python-translations:
     strategy:
       matrix:
         repo: [credentials]
     runs-on: ubuntu-latest
+    needs: [setup-branch]
 
     steps:
-
+      # Clones the openedx-translations repo
+      - name: clone Carlos-Muniz/openedx-translations
+        uses: actions/checkout@v3
+      
       # Installs gettext, a dependency for generating translation files in django
       - name: install gettext
         run: sudo apt install -y gettext
