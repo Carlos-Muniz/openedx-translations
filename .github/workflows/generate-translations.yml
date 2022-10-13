@@ -39,8 +39,7 @@ jobs:
       - name: install requirements
         run: |
           cd ${{ matrix.repo }}
-          find . -name translations.txt
-          pip install -r requirements/translations.txt
+          pip install -r $(find . -name translations.txt) -v
 
       # Generates the english translation files
       - name: generate translations
