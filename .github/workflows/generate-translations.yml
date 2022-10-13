@@ -38,11 +38,11 @@ jobs:
       # Installs Python requirements from translations.txt
       - name: install requirements
         run: |
-        cd ${{ matrix.repo }}
-        pip install -r requirements/translations.txt
+          cd ${{ matrix.repo }}
+          pip install -r requirements/translations.txt
 
       # Generates the english translation files
       - name: generate translations
         run: |
-        cd ${{ matrix.repo }}
-        make extract_translations
+          cd ${{ matrix.repo }}
+          make extract_translations
