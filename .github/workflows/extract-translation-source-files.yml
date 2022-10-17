@@ -21,6 +21,9 @@ jobs:
       run: echo "::set-output name=branch::automated/extract-translation-source-files-$(date +'%Y%m%dT%H%M%S')"
 
     # clones the openedx-translations repo so a branch can be added in the next step
+    - name: echo branch name
+      id: date
+      run: echo $BRANCH
     - name: clone openedx/openedx-translations
       uses: actions/checkout@v3
     
@@ -108,6 +111,7 @@ jobs:
 
     steps:
       # Clones the openedx-translations repo on the automated/extract-translation-source-files-# branch
+      # Clones the openedx-translations repo on the automated/generate-translations branch
       - name: clone openedx/openedx-translations
         uses: actions/checkout@v3
         with:
